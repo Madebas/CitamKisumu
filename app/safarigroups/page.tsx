@@ -8,6 +8,9 @@ import Link from "next/link";
 const SafariGroups: React.FC = () => {
   const router = useRouter();
 
+  // Google Form URL for registration
+  const googleFormUrl = "https://docs.google.com/forms/d/your-form-id-here/viewform";
+
   return (
     <section className="py-20 bg-[#fff8f0]">
       <div className="container mx-auto w-[85%] flex flex-col md:flex-row items-center gap-12">
@@ -35,23 +38,21 @@ const SafariGroups: React.FC = () => {
           </p>
 
           <div className="flex gap-4 pt-4">
-            <button
-              onClick={() =>
-                (window.location.href = "mailto:info@citamkisumu.org")
-              }
+            <Link
+              href={googleFormUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-6 py-3 bg-[#e67e22] text-white font-semibold rounded-xl hover:bg-[#cf6d17] transition"
             >
               Join One
-            </button>
+            </Link>
 
-            {/* <button
-              onClick={() => router.push("/SafariGroupsDetails")}
-              className="px-6 py-3 border border-[#e67e22] text-[#e67e22] font-semibold rounded-xl hover:bg-[#e67e22] hover:text-white transition"
+            <Link 
+              className="px-6 py-3 border border-[#e67e22] text-[#e67e22] font-semibold rounded-xl hover:bg-[#e67e22] hover:text-white transition" 
+              href="../safarigroupsdetails"
             >
-              
               Read More
-            </button> */}
-            <Link className="px-6 py-3 border border-[#e67e22] text-[#e67e22] font-semibold rounded-xl hover:bg-[#e67e22] hover:text-white transition" href="../safarigroupsdetails">Read More</Link>
+            </Link>
           </div>
         </div>
       </div>
