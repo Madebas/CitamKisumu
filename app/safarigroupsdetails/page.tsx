@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { MapPin, Users, CalendarCheck, Handshake } from "lucide-react";
 
  
               // src="/images/prayergroups."
@@ -126,18 +126,18 @@ const SafariGroupsDetails: React.FC = () => {
           ))}
         </div>
 
-        <div className="text-center mt-16">
+        <div className="text-center space-y-4">
+          <h3 className="text-2xl font-semibold text-gray-900">Ready to visit?</h3>
           <Link
             href={googleFormUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-8 py-3 bg-[#e67e22] text-white font-semibold rounded-xl hover:bg-[#cf6d17] transition-colors duration-300 inline-block"
+            className="inline-flex items-center justify-center px-10 py-3 rounded-full bg-[#c04b37] text-white font-semibold hover:bg-[#a13c2d] shadow-lg transition"
           >
-            Join a Safari Group Today
+            Register your interest
           </Link>
-          
-          <p className="text-sm text-gray-600 mt-4">
-            Fill out our registration form to get connected with a Safari Group
+          <p className="text-sm text-gray-600">
+            A Safari Group leader will contact you with location and meeting time details.
           </p>
         </div>
       </div>

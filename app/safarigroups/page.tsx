@@ -2,22 +2,19 @@
 
 import React from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const SafariGroups: React.FC = () => {
-  const router = useRouter();
-
   // Google Form URL for registration
   const googleFormUrl = "https://docs.google.com/forms/d/your-form-id-here/viewform";
 
   return (
-    <section className="py-20 bg-[#fff8f0]">
+    <section id="safarigroups" className="py-20 bg-[#fff8f0]">
       <div className="container mx-auto w-[85%] flex flex-col md:flex-row items-center gap-12">
         {/* Left Image */}
         <div className="relative w-full md:w-1/2 h-[350px] rounded-2xl overflow-hidden shadow-md">
           <Image
-            src="/images/safarigroups.jpg"
+            src="https://images.unsplash.com/photo-1528938102132-4a9276b8e320?w=1200&auto=format&fit=crop&q=60"
             alt="CITAM Kisumu Safari Groups"
             fill
             className="object-cover"

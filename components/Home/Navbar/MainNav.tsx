@@ -1,4 +1,4 @@
-"use Client";
+"use client";
 
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
@@ -8,11 +8,14 @@ import { HiBars3BottomRight } from "react-icons/hi2";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import SearchBox from "@/components/Helper/SearchBox";
 
-type props = {
+type MainNavProps = {
   openMainNav: () => void;
+  openSearch: () => void;
+  openGive: () => void;
+  isGiveOpen: boolean;
 };
 
-const MainNav = ({ openMainNav }: props) => {
+const MainNav = ({ openMainNav, openSearch, openGive, isGiveOpen }: MainNavProps) => {
   const [MainNavBg, setMainNavBg] = useState(false);
 
   // submenu control
@@ -61,6 +64,8 @@ const MainNav = ({ openMainNav }: props) => {
       className={`${
         MainNavBg ? "bg-red-950 shadow-md" : "fixed"
       } transition-all duration-300 h-[12vh] z-[1000] fixed w-full`}
+      role="navigation"
+      aria-label="Primary"
     >
       <div className="flex items-center h-full w-[90%] xl:w-[80%] mx-auto">
         {/* Logo */}
@@ -88,21 +93,23 @@ const MainNav = ({ openMainNav }: props) => {
             <div
               key={link.id}
               className="group"
-              ref={(el) => (itemRefs.current[index] = el)}
+              ref={(el) => {
+                itemRefs.current[index] = el;
+              }}
               onMouseEnter={() => link.submenu && handleMouseEnter(index, link.id)}
               onMouseLeave={handleMouseLeave}
             >
-              <Link href={link.url}>
-                <div className="flex items-center relative left-32 space-x-1">
+              <Link href={link.url} aria-haspopup={link.submenu ? "menu" : undefined} aria-expanded={activeSubmenu === link.id}>
+                <div className="flex items-center space-x-1">
                   <p className="text-white text-base font-medium w-fit block after:block after:content-[''] after:absolute after:h-[3px] after:bg-red-900 after:w-full after:scale-x-0 hover:after:scale-x-100 after:transition after:duration-300 after:origin-left">
                     {link.label}
                   </p>
-                  {/* Dropdown Icon */}
                   {link.submenu && (
                     <RiArrowDropDownLine
                       className={`text-white text-2xl transition-transform duration-300 ${
                         activeSubmenu === link.id ? "rotate-180" : "rotate-0"
                       }`}
+                      aria-hidden
                     />
                   )}
                 </div>
@@ -136,8 +143,31 @@ const MainNav = ({ openMainNav }: props) => {
 
         {/* Button and Search Box */}
         <div className="flex items-right justify-end space-x-4 ml-auto">
-          <SearchBox />
-          <button className="md:px-2 md:py-1.5 px-6 py-2 text-black text-base bg-white hover:bg-gray-200 transition-all duration-200 rounded-lg">
+          <SearchBox onClick={openSearch} />
+          <button
+            onClick={openGive}
+            className={`md:px-2 md:py-1.5 px-6 py-2 text-base font-semibold rounded-lg transition-all duration-200 flex items-center gap-2 ${
+              isGiveOpen
+                ? "bg-[#c04b37] text-white shadow-lg"
+                : "bg-white text-[#3c0d0d] hover:bg-gray-100"
+            }`}
+            aria-pressed={isGiveOpen}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              className="w-5 h-5"
+              aria-hidden
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 21c-1.657 0-3-1.567-3-3.5S10.343 14 12 14s3 1.567 3 3.5S13.657 21 12 21Zm0 0c4.5 0 8-3.194 8-7.14 0-2.648-2.686-4.694-5.156-3.846-2.618.895-4.882.895-7.5 0C4.874 9.166 2 10.212 2 13.86 2 17.806 5.5 21 10 21"
+              />
+            </svg>
             Give
           </button>
           <HiBars3BottomRight

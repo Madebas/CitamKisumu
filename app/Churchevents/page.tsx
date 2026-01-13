@@ -87,7 +87,7 @@ export default function Page() {
   }, [])
 
   return (
-    <section className="py-16 bg-[#6b0f1a]">
+    <section id="events" className="py-16 bg-[#6b0f1a]">
       <div className="max-w-7xl mx-auto px-4">
 
         {/* Header */}

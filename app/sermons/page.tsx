@@ -1,115 +1,199 @@
-import React from 'react'
-import Link from 'next/link'
+"use client";
+
+import React from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Navigation, Pagination, A11y } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
+const pastors = [
+  {
+    id: 1,
+    name: "Rev. John Ochieng",
+    title: "Senior Pastor",
+    bio: "Passionate about discipleship and vibrant worship.",
+    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&auto=format&fit=crop&q=60",
+  },
+  {
+    id: 2,
+    name: "Pastor Grace Achieng",
+    title: "Prayer & Missions Pastor",
+    bio: "Leading intercession and global outreach teams.",
+    image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=600&auto=format&fit=crop&q=60",
+  },
+  {
+    id: 3,
+    name: "Pastor Daniel Were",
+    title: "Family Life Pastor",
+    bio: "Building strong families rooted in Christ.",
+    image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600&auto=format&fit=crop&q=60",
+  },
+  {
+    id: 4,
+    name: "Pastor Lydia Atieno",
+    title: "Youth & NextGen",
+    bio: "Equipping the next generation for kingdom impact.",
+    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&auto=format&fit=crop&q=60",
+  },
+];
+
+const recentSermons = [
+  {
+    id: "sermon-1",
+    title: "Anchored Hope",
+    date: "January 12, 2026",
+    speaker: "Rev. John Ochieng",
+    excerpt: "Discover how Hebrews 6:19 keeps us steady in uncertain times.",
+    youtubeId: "ysz5S6PUM-U",
+    thumbnail: "https://i.ytimg.com/vi/ysz5S6PUM-U/mqdefault.jpg",
+  },
+  {
+    id: "sermon-2",
+    title: "The Spirit-Filled Life",
+    date: "January 5, 2026",
+    speaker: "Pastor Grace Achieng",
+    excerpt: "A practical walk through Galatians 5 on life in the Spirit.",
+    youtubeId: "ScMzIvxBSi4",
+    thumbnail: "https://i.ytimg.com/vi/ScMzIvxBSi4/mqdefault.jpg",
+  },
+  {
+    id: "sermon-3",
+    title: "Faith for Families",
+    date: "December 29, 2025",
+    speaker: "Pastor Daniel Were",
+    excerpt: "Building altars of prayer at home for generational impact.",
+    youtubeId: "2Xc9gXyf2G4",
+    thumbnail: "https://i.ytimg.com/vi/2Xc9gXyf2G4/mqdefault.jpg",
+  },
+  {
+    id: "sermon-4",
+    title: "Revive Us Again",
+    date: "December 22, 2025",
+    speaker: "Pastor Lydia Atieno",
+    excerpt: "A call to passionate worship and renewal among youth.",
+    youtubeId: "dQw4w9WgXcQ",
+    thumbnail: "https://i.ytimg.com/vi/dQw4w9WgXcQ/mqdefault.jpg",
+  },
+];
 
 const SermonSection = () => {
   return (
-    <section className="min-h-screen bg-gradient-to-br from-slate-900 via-red-900 to-slate-900 text-white py-12 px-4">
-      <div className="max-w-4xl mx-auto">
-        {/* Header Section - More Compact */}
-        <div className="text-center mb-12">
-          <h1 className="text-3xl md:text-5xl font-bold mb-3 tracking-tight">
-            CITAM Kisumu Sermons
-          </h1>
-          <p className="text-lg md:text-xl text-gray-300 font-light">
-            Church Sermon
-          </p>
-        </div>
-
-        {/* Main Content - Tighter Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-          {/* Left Column - Sermon Details */}
-          <div className="space-y-6">
-            {/* Sermon Title */}
-            <div>
-              <h2 className="text-xl md:text-2xl font-semibold mb-3">
-                The Power of Faith in Modern Times
-              </h2>
-              <p className="text-gray-300 leading-relaxed text-sm">
-                Join us for an inspiring CITAM Kisumu Sermons where we explore the enduring 
-                power of faith in our contemporary world.
-              </p>
-            </div>
-
-            {/* Sermon Details - More Compact */}
-            <div className="space-y-3">
-              <div className="flex items-center space-x-3">
-                <div className="w-1.5 h-1.5 bg-red-500 rounded-full flex-shrink-0"></div>
-                <span className="text-gray-300 text-sm">November 15, 2024</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <div className="w-1.5 h-1.5 bg-red-500 rounded-full flex-shrink-0"></div>
-                <span className="text-gray-300 text-sm">6:00 PM - 7:30 PM</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <div className="w-1.5 h-1.5 bg-red-500 rounded-full flex-shrink-0"></div>
-                <span className="text-gray-300 text-sm">Pastor John Smith</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <div className="w-1.5 h-1.5 bg-red-500 rounded-full flex-shrink-0"></div>
-                <span className="text-gray-300 text-sm">Hebrews 11:1-6</span>
-              </div>
-            </div>
-
-            {/* Key Points - More Compact */}
-            <div className="bg-black/30 backdrop-blur-sm rounded-lg p-4 border border-purple-500/20">
-              <h3 className="text-base font-semibold mb-2">Key Takeaways</h3>
-              <ul className="space-y-1.5 text-gray-300 text-sm">
-                <li>• Understanding faith as substance and evidence</li>
-                <li>• Applying biblical principles to daily life</li>
-                <li>• Building spiritual resilience</li>
-                <li>• Community's role in strengthening faith</li>
-              </ul>
-            </div>
+    <section
+      id="sermons"
+      className="bg-gradient-to-b from-slate-950 via-[#40070f] to-slate-950 text-white py-16"
+      aria-labelledby="sermons-heading"
+    >
+      <div className="max-w-6xl mx-auto px-4 lg:px-8 space-y-16">
+        {/* Upper Section */}
+        <div className="space-y-6">
+          <div className="text-center space-y-3">
+            <p className="text-sm uppercase tracking-[0.4em] text-red-200">Pastoral Team</p>
+            <h2 id="sermons-heading" className="text-3xl md:text-5xl font-extrabold text-white">
+              Shepherds after God&apos;s Heart
+            </h2>
+            <p className="text-base text-gray-300 max-w-3xl mx-auto">
+              Meet the servants leading worship, teaching, and pastoral care every week at CITAM Kisumu.
+            </p>
           </div>
 
-          {/* Right Column - Media/Image */}
           <div className="relative">
-            <div className="aspect-video bg-gradient-to-br from-red-600/20 to-blue-600/20 rounded-xl border border-red-500/30 backdrop-blur-sm flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-3 hover:scale-110 transition-transform duration-300 cursor-pointer">
-                  <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z"/>
-                  </svg>
-                </div>
-                <p className="text-gray-300 text-sm">Play Sermon Recording</p>
-              </div>
-            </div>
-            
-            {/* Smaller Decorative Elements */}
-            <div className="absolute -top-2 -right-2 w-16 h-16 bg-purple-500/10 rounded-full blur-lg"></div>
-            <div className="absolute -bottom-2 -left-2 w-20 h-20 bg-blue-500/10 rounded-full blur-lg"></div>
+            <Swiper
+              modules={[Autoplay, Navigation, Pagination, A11y]}
+              slidesPerView={1}
+              spaceBetween={24}
+              breakpoints={{
+                768: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+              }}
+              autoplay={{ delay: 6000, pauseOnMouseEnter: true, disableOnInteraction: false }}
+              loop
+              navigation
+              pagination={{ clickable: true }}
+              aria-label="Featured pastors carousel"
+              className="!pb-12"
+            >
+              {pastors.map((pastor) => (
+                <SwiperSlide key={pastor.id}>
+                  <article className="h-full rounded-3xl bg-white/10 backdrop-blur border border-white/10 p-6 flex flex-col items-center text-center shadow-lg hover:shadow-2xl transition-transform hover:-translate-y-1">
+                    <div className="relative w-40 h-40 rounded-full overflow-hidden mb-4 shadow-lg">
+                      <Image
+                        src={pastor.image}
+                        alt={pastor.name}
+                        fill
+                        sizes="(max-width: 768px) 60vw, 200px"
+                        className="object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+                    <h3 className="text-xl font-semibold text-white">{pastor.name}</h3>
+                    <p className="text-sm text-red-200 font-semibold">{pastor.title}</p>
+                    <p className="text-sm text-gray-200 mt-2">{pastor.bio}</p>
+                  </article>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
         </div>
 
-        {/* Bottom Right Corner - Smaller Button */}
-        <div className="flex justify-end mt-12">
-          <Link 
-            href="/sermons/previous-services"
-            className="group relative inline-flex items-center px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-full transition-all duration-300 transform hover:scale-105 hover:shadow-xl overflow-hidden text-sm"
-          >
-            {/* Animated background */}
-            <div className="absolute inset-0 bg-gradient-to-r from-red-600 to-red-800 group-hover:from-red-700 group-hover:to-red-900 transition-all duration-300"></div>
-            
-            {/* Button content */}
-            <span className="relative z-10 flex items-center space-x-2">
-              <span>Get More Sermons</span>
-              <svg 
-                className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </span>
+        {/* Lower Section */}
+        <div className="space-y-10">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+              <p className="text-sm uppercase tracking-[0.4em] text-red-200">Latest Messages</p>
+              <h3 className="text-3xl font-bold">Fresh Sermons to Strengthen Your Faith</h3>
+            </div>
+            <Link
+              href="/sermons/archive"
+              className="inline-flex items-center justify-center px-6 py-3 bg-red-600 hover:bg-red-700 transition-colors text-white font-semibold rounded-full shadow-lg"
+            >
+              Get More Sermons
+            </Link>
+          </div>
 
-            {/* Shine effect */}
-            <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
-          </Link>
+          <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+            {recentSermons.map((sermon) => (
+              <article
+                key={sermon.id}
+                className="rounded-3xl bg-white text-gray-900 flex flex-col shadow-lg hover:shadow-2xl transition-transform hover:-translate-y-1"
+              >
+                <div className="relative w-full h-48 overflow-hidden rounded-t-3xl">
+                  <Image
+                    src={sermon.thumbnail}
+                    alt={`${sermon.title} thumbnail`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 25vw"
+                    className="object-cover"
+                    loading="lazy"
+                  />
+                  <button
+                    type="button"
+                    className="absolute bottom-3 right-3 inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-red-600 text-white text-xs font-semibold"
+                    aria-label={`Watch ${sermon.title}`}
+                    onClick={() => window.open(`https://www.youtube.com/watch?v=${sermon.youtubeId}`, "_blank")}
+                  >
+                    ▶ Watch
+                  </button>
+                </div>
+                <div className="p-5 space-y-3 flex-1 flex flex-col">
+                  <div>
+                    <p className="text-xs uppercase tracking-widest text-red-500">{sermon.date}</p>
+                    <h4 className="text-lg font-semibold text-gray-900">{sermon.title}</h4>
+                  </div>
+                  <p className="text-sm text-gray-700 flex-1">{sermon.excerpt}</p>
+                  <p className="text-sm font-semibold text-gray-900">
+                    Speaker: <span className="text-red-600">{sermon.speaker}</span>
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default SermonSection
+export default SermonSection;

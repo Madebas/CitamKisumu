@@ -6,7 +6,7 @@ import MinistriesSlider from './MinistriesSlide';
 
 const Ministries = () => {
   return (
-    <div className="pt-20 pb-20">
+    <div id="ministries" className="pt-20 pb-20">
       {/* Section heading */}
       <SectionHeading heading="CITAM Ministries" />
 

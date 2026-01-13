@@ -5,7 +5,7 @@ import { Facebook, Instagram, ArrowUp } from 'lucide-react';
 
 const Page = () => {
   return (
-    <div className="bg-black text-gray-300 min-h-screen relative">
+    <div className="bg-black text-gray-300">
       <footer className="relative overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0">
