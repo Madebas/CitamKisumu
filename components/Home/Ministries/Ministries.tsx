@@ -6,16 +6,21 @@ import MinistriesSlider from './MinistriesSlide';
 
 const Ministries = () => {
   return (
-    <div id="ministries" className="pt-20 pb-20">
-      {/* Section heading */}
-      <SectionHeading heading="CITAM Ministries" />
+    <section id="ministries" className="bg-[#fffaf4] py-20">
+      <div className="w-[90%] lg:w-[80%] mx-auto space-y-12">
+        <div className="text-center space-y-3">
+          <p className="text-sm uppercase tracking-[0.4em] text-[#c04b37]">Serve & Grow</p>
+          <SectionHeading heading="CITAM Ministries" />
+          <p className="text-gray-600 max-w-3xl mx-auto">
+            Discover places to serve, lead, and be discipled. From media to missions, there is a transforming ministry for every gift.
+          </p>
+        </div>
 
-      {/* Section Content */}
-      <div className="mt-14 w-[80%] mx-auto">
-        {/* Slider */}
-        <MinistriesSlider />
+        <div className="mt-8">
+          <MinistriesSlider />
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

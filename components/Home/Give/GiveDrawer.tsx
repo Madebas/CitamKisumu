@@ -140,10 +140,10 @@ const GiveDrawer = ({ isOpen, onClose }: GiveDrawerProps) => {
                   <div className="flex flex-col gap-2">
                     <p className="text-xs uppercase tracking-[0.3em] text-gray-500">Paybill Number</p>
                     <div className="flex items-center justify-between gap-3 rounded-2xl bg-[#fff5ef] px-4 py-3">
-                      <p className="text-2xl font-bold text-[#c04b37]">222222</p>
+                      <p className="text-2xl font-bold text-[#c04b37]">933946</p>
                       <button
                         type="button"
-                        onClick={() => handleCopy("222222", "mpesa" )}
+                        onClick={() => handleCopy("933946", "mpesa" )}
                         className="flex items-center gap-1 text-sm text-[#c04b37]"
                       >
                         {copiedField === "mpesa" ? (
@@ -198,7 +198,7 @@ const GiveDrawer = ({ isOpen, onClose }: GiveDrawerProps) => {
                   <ol className="space-y-2 text-sm text-gray-600">
                     <li>1. Open M-Pesa app</li>
                     <li>2. Go to Lipa na M-Pesa → Pay Bill</li>
-                    <li>3. Enter Paybill <strong>222222</strong></li>
+                    <li>3. Enter Paybill <strong>933946</strong></li>
                     <li>4. Account: type purpose or your name</li>
                     <li>5. Confirm amount → Send</li>
                   </ol>
@@ -260,7 +260,7 @@ const GiveDrawer = ({ isOpen, onClose }: GiveDrawerProps) => {
                   </div>
                 </div>
                 <ul className="text-sm text-gray-600 space-y-1">
-                  <li>• Write cheques to: <strong>CITAM Kisumu</strong></li>
+                  <li>• Write cheques to: <strong>Christ Is The Answer Ministries Kisumu</strong></li>
                   <li>• Deliver to: Church Office, Kisumu Sanctuary (Mon-Fri, 9am–5pm)</li>
                   <li>• We are grateful for your faithful giving ♥</li>
                 </ul>
