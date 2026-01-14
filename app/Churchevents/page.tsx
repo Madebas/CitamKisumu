@@ -102,7 +102,7 @@ export default function Page() {
         </div>
 
         {/* Carousel */}
-        <div className="relative h-[500px] rounded-2xl overflow-hidden mb-16 shadow-xl">
+        <div className="relative h-[360px] sm:h-[420px] lg:h-[500px] rounded-2xl overflow-hidden mb-16 shadow-xl">
           <img
             src={carouselSlides[index].image}
             alt={carouselSlides[index].title}
@@ -115,7 +115,7 @@ export default function Page() {
                 {daysLeft} Days to Christmas Eve Service
               </p>
             )}
-            <h3 className="text-4xl font-bold">
+            <h3 className="text-3xl sm:text-4xl font-bold">
               {carouselSlides[index].title}
             </h3>
             <p className="mt-2 text-gray-200">
@@ -130,7 +130,7 @@ export default function Page() {
             onClick={() =>
               setIndex((index - 1 + carouselSlides.length) % carouselSlides.length)
             }
-            className="absolute left-4 top-1/2 bg-white/90 px-3 py-1 rounded"
+            className="absolute left-4 top-1/2 max-sm:top-auto max-sm:bottom-4 max-sm:left-3 bg-white/90 px-3 py-1 rounded"
           >
             ❮
           </button>
@@ -138,14 +138,14 @@ export default function Page() {
             onClick={() =>
               setIndex((index + 1) % carouselSlides.length)
             }
-            className="absolute right-4 top-1/2 bg-white/90 px-3 py-1 rounded"
+            className="absolute right-4 top-1/2 max-sm:top-auto max-sm:bottom-4 max-sm:right-3 bg-white/90 px-3 py-1 rounded"
           >
             ❯
           </button>
         </div>
 
         {/* Events Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {events.map((event, i) => (
             <div
               key={i}

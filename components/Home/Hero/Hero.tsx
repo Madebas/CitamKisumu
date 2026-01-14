@@ -80,7 +80,7 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-30 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-16 lg:py-28 flex flex-col gap-12 lg:gap-16">
+      <div className="relative z-30 max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-16 md:py-20 lg:py-28 flex flex-col gap-12 lg:gap-16">
         {/* Tag + Main content grid */}
         <div className="space-y-10">
           <div className="inline-flex items-center gap-2.5 px-5 py-2 rounded-full bg-white/15 backdrop-blur-sm text-white text-xs sm:text-sm font-semibold uppercase tracking-[0.35em] border border-white/20">
@@ -124,7 +124,7 @@ const Hero = () => {
                 <span className="font-medium">Kisumu Sanctuary • Deliverance Road</span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                 {serviceTimes.map((slot) => (
                   <div
                     key={slot.title}
@@ -143,7 +143,7 @@ const Hero = () => {
         </div>
 
         {/* Stats */}
-        <div className="grid sm:grid-cols-3 gap-5 lg:gap-8 pt-4 lg:pt-8">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5 lg:gap-8 pt-4 lg:pt-8">
           {heroStats.map((stat) => (
             <div
               key={stat.label}

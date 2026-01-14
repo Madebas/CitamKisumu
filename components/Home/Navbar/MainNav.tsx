@@ -67,9 +67,9 @@ const MainNav = ({ openMainNav, openSearch, openGive, isGiveOpen }: MainNavProps
       role="navigation"
       aria-label="Primary"
     >
-      <div className="flex items-center h-full w-[90%] xl:w-[80%] mx-auto">
+      <div className="flex items-center h-full w-[90%] xl:w-[80%] mx-auto px-4 lg:px-6">
         {/* Logo */}
-        <div className="flex items-center space-x-2 absolute left-2">
+        <div className="flex items-center space-x-2 absolute left-2 lg:static lg:left-0 flex-shrink-0">
           <div className="w-16 h-16 rounded-full flex items-center justify-center">
             <Image
               src="/images/CITAMLOGO.png"
@@ -86,7 +86,7 @@ const MainNav = ({ openMainNav, openSearch, openGive, isGiveOpen }: MainNavProps
 
         {/* Navigation Links */}
         <div
-          className="hidden lg:flex items-center space-x-8 relative"
+          className="hidden lg:flex items-center flex-wrap gap-6 xl:gap-8 relative lg:ml-8 xl:ml-12"
           ref={navLinksRef}
         >
           {navLinks.map((link, index) => (

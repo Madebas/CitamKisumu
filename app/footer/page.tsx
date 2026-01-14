@@ -17,8 +17,8 @@ const Page = () => {
           <div className="absolute inset-0 bg-black/80" />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 py-14">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+        <div className="relative max-w-7xl mx-auto px-4 lg:px-8 py-14">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
             {/* Newsletter */}
             <div>
               <h3 className="text-xl font-bold text-white mb-2">Stay Connected</h3>

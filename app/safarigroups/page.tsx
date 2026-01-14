@@ -12,7 +12,7 @@ const SafariGroups: React.FC = () => {
     <section id="safarigroups" className="py-20 bg-[#fff8f0]">
       <div className="container mx-auto w-[85%] flex flex-col md:flex-row items-center gap-12">
         {/* Left Image */}
-        <div className="relative w-full md:w-1/2 h-[350px] rounded-2xl overflow-hidden shadow-md">
+        <div className="relative w-full md:w-1/2 h-[320px] sm:h-[380px] lg:h-[420px] rounded-2xl overflow-hidden shadow-md">
           <Image
             src="https://images.unsplash.com/photo-1528938102132-4a9276b8e320?w=1200&auto=format&fit=crop&q=60"
             alt="CITAM Kisumu Safari Groups"
@@ -22,7 +22,7 @@ const SafariGroups: React.FC = () => {
         </div>
 
         {/* Right Content */}
-        <div className="w-full md:w-1/2 space-y-6">
+        <div className="w-full md:w-1/2 space-y-6 md:space-y-8">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
             Safari Groups at CITAM Kisumu
           </h2>
@@ -34,7 +34,7 @@ const SafariGroups: React.FC = () => {
             Christian relationships, and extend love to the community.
           </p>
 
-          <div className="flex gap-4 pt-4">
+          <div className="flex flex-wrap gap-4 pt-4 max-md:flex-col">
             <Link
               href={googleFormUrl}
               target="_blank"

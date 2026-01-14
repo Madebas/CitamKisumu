@@ -8,8 +8,8 @@ import Link from 'next/link'
 const About = () => {
   return (
     <section id="about" className="pt-20 pb-20 bg-[#fff8f0]">
-      <div className="container mx-auto w-[80%] flex flex-col md:flex-row items-center gap-10">
-        <div className="md:w-1/2">
+      <div className="container mx-auto w-[90%] max-w-6xl px-4 flex flex-col md:flex-row md:items-center gap-10 md:gap-14">
+        <div className="w-full md:w-1/2">
           <Image
             src="/images/HeroSectionMain2.png"
             alt="CITAM Kisumu Church"
@@ -20,7 +20,7 @@ const About = () => {
           />
         </div>
 
-        <div className="md:w-1/2">
+        <div className="w-full md:w-1/2">
           <SectionHeading heading="CITAM KSM" />
           <p className="mt-6 text-gray-700 leading-relaxed">
             Christ Is The Answer Ministries (CITAM) Kisumu is a community of believers committed to transforming lives through the gospel of Jesus Christ.
@@ -38,7 +38,7 @@ const About = () => {
         </div>
       </div>
 
-      <div className="container mx-auto w-[80%] mt-16 bg-white rounded-2xl shadow-sm overflow-hidden">
+      <div className="container mx-auto w-[92%] max-w-6xl px-4 mt-16 bg-white rounded-2xl shadow-sm overflow-hidden">
         <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-gray-300">
           <div className="p-8 text-center">
             <h3 className="text-xl font-bold mb-4">Our Mission</h3>
