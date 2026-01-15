@@ -21,8 +21,10 @@ export const LocationIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-export default {
+const Icons = {
   CalendarIcon,
   ClockIcon,
   LocationIcon,
 };
+
+export default Icons;

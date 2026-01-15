@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import {Poppins, Inter} from "next/font/google";
+import {Poppins} from "next/font/google";
 import ResponsiveNav from "@/components/Home/Navbar/ResponsiveNav";
 
 const font = Poppins({

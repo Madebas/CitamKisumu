@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { MapPin, Users, CalendarCheck, Handshake } from "lucide-react";
+// Removed unused lucide-react imports to avoid build warnings
 
  
               // src="/images/prayergroups."

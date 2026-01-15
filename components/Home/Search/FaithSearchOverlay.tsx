@@ -80,7 +80,7 @@ const FaithSearchOverlay = ({ isOpen, onClose }: FaithSearchOverlayProps) => {
       if (data.type === "answer") setState("answered");
       else if (data.type === "blocked") setState("blocked");
       else setState("error");
-    } catch (error) {
+    } catch (_error) {
       setResponse({ type: "error", message: API_ERROR });
       setState("error");
     }
