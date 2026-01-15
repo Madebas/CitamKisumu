@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Facebook, Instagram, ArrowUp } from 'lucide-react';
 
 const Page = () => {
@@ -9,10 +10,12 @@ const Page = () => {
       <footer className="relative overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0">
-          <img
+          <Image
             src="https://wallpapers.com/images/hd/dark-sky-background-1920-x-1200-l1tp14u0zbscfcv8.jpg"
             alt="Footer background"
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
+            unoptimized
           />
           <div className="absolute inset-0 bg-black/80" />
         </div>
