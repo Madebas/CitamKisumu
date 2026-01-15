@@ -12,31 +12,46 @@ import "swiper/css/pagination";
 const pastors = [
   {
     id: 1,
-    name: "Rev. John Ochieng",
+    name: "Rev. Geoffrey Ong’ondo",
     title: "Senior Pastor",
     bio: "Passionate about discipleship and vibrant worship.",
-    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&auto=format&fit=crop&q=60",
+    image: { src: "/images/Rev. Geoffrey Ong’ondo.png", alt: "Rev. Geoffrey Ong’ondo" },
   },
   {
     id: 2,
-    name: "Pastor Grace Achieng",
+    name: "Rev. Jane Ong’ondo",
     title: "Prayer & Missions Pastor",
     bio: "Leading intercession and global outreach teams.",
-    image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=600&auto=format&fit=crop&q=60",
+    image: { src: "/images/Rev Jane Ongondo..jpeg", alt: "Rev. Jane Ong’ondo" },
   },
   {
     id: 3,
-    name: "Pastor Daniel Were",
+    name: "Rev. Patrick Kiprop",
     title: "Family Life Pastor",
     bio: "Building strong families rooted in Christ.",
-    image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600&auto=format&fit=crop&q=60",
+    image: { src: "/images/Rev P Kiprop.jpg", alt: "Rev. Patrick Kiprop" },
   },
   {
     id: 4,
-    name: "Pastor Lydia Atieno",
+    name: "Rev. Petronila Wegulo",
     title: "Youth & NextGen",
     bio: "Equipping the next generation for kingdom impact.",
-    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&auto=format&fit=crop&q=60",
+    image: { src: "/images/Rev Petronila Wegulo.jpeg", alt: "Rev. Petronila Wegulo" },
+  },
+
+  {
+    id: 5,
+    name: "Pastor Florence Iminza",
+    title: "Youth & NextGen",
+    bio: "Equipping the next generation for kingdom impact.",
+    image: { src: "/images/Pastor Florence Iminza.jpeg", alt: "Pastor Florence Iminza" },
+  },
+  {
+    id: 6,
+    name: "Pastor Epiphany Nyirahabimana",
+    title: "Intercessory and Prayer Pastor",
+    bio: "Equipping the next generation for kingdom impact.",
+    image: { src: "/images/Pastor2.jpeg", alt: "Pastor Epiphany Nyirahabimana" },
   },
 ];
 
@@ -45,37 +60,37 @@ const recentSermons = [
     id: "sermon-1",
     title: "Anchored Hope",
     date: "January 12, 2026",
-    speaker: "Rev. John Ochieng",
-    excerpt: "Discover how Hebrews 6:19 keeps us steady in uncertain times.",
-    youtubeId: "ysz5S6PUM-U",
-    thumbnail: "https://i.ytimg.com/vi/ysz5S6PUM-U/mqdefault.jpg",
+    speaker: "Rev. Geoffrey Ong’ondo",
+    excerpt: "Last Sunday's message on faith — how Hebrews 6:19 anchors our hope.",
+    youtubeId: "sDhq-kYttyU",
+    thumbnail: "https://i.ytimg.com/vi/sDhq-kYttyU/mqdefault.jpg",
   },
   {
     id: "sermon-2",
     title: "The Spirit-Filled Life",
     date: "January 5, 2026",
-    speaker: "Pastor Grace Achieng",
-    excerpt: "A practical walk through Galatians 5 on life in the Spirit.",
-    youtubeId: "ScMzIvxBSi4",
-    thumbnail: "https://i.ytimg.com/vi/ScMzIvxBSi4/mqdefault.jpg",
+    speaker: "Rev. Geoffrey Ong’ondo",
+    excerpt: "Live from CITAM Kisumu — Rev. Geoffrey Ong’ondo on walking by faith.",
+    youtubeId: "HCu7klZSpD8",
+    thumbnail: "https://i.ytimg.com/vi/HCu7klZSpD8/mqdefault.jpg",
   },
   {
     id: "sermon-3",
     title: "Faith for Families",
-    date: "December 29, 2025",
-    speaker: "Pastor Daniel Were",
-    excerpt: "Building altars of prayer at home for generational impact.",
-    youtubeId: "2Xc9gXyf2G4",
-    thumbnail: "https://i.ytimg.com/vi/2Xc9gXyf2G4/mqdefault.jpg",
+    date: "December 28, 2025",
+    speaker: "Rev. Patrick Kiprop",
+    excerpt: "Rev. Patrick Kiprop preaching — family faith and practical steps to build prayer at home.",
+    youtubeId: "VU6gOan7amY",
+    thumbnail: "https://i.ytimg.com/vi/VU6gOan7amY/mqdefault.jpg",
   },
   {
     id: "sermon-4",
     title: "Revive Us Again",
-    date: "December 22, 2025",
-    speaker: "Pastor Lydia Atieno",
-    excerpt: "A call to passionate worship and renewal among youth.",
-    youtubeId: "dQw4w9WgXcQ",
-    thumbnail: "https://i.ytimg.com/vi/dQw4w9WgXcQ/mqdefault.jpg",
+    date: "December 21, 2025",
+    speaker: "Rev. Geoffrey Ong’ondo",
+    excerpt: "Rev. Geoffrey Ong’ondo — a call to revival and renewed faith (recorded live).",
+    youtubeId: "h6kHOcMSqu4",
+    thumbnail: "https://i.ytimg.com/vi/h6kHOcMSqu4/mqdefault.jpg",
   },
 ];
 
@@ -120,8 +135,8 @@ const SermonSection = () => {
                   <article className="h-full rounded-3xl bg-white/10 backdrop-blur border border-white/10 p-6 flex flex-col items-center text-center shadow-lg hover:shadow-2xl transition-transform hover:-translate-y-1">
                     <div className="relative w-40 h-40 rounded-full overflow-hidden mb-4 shadow-lg">
                       <Image
-                        src={pastor.image}
-                        alt={pastor.name}
+                        src={pastor.image.src}
+                        alt={pastor.image.alt || pastor.name}
                         fill
                         sizes="(max-width: 768px) 60vw, 200px"
                         className="object-cover"

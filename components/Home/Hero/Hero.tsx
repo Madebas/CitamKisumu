@@ -6,9 +6,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Radio, CalendarDays, PlayCircle, MapPin } from "lucide-react";
 
 const serviceTimes = [
-  { title: "1st Service", time: "7:30am", theme: "Traditional Worship" },
-  { title: "2nd Service", time: "10:30am", theme: "Family Celebration" },
-  { title: "3rd Service", time: "12:00pm", theme: "Youth Encounter" },
+  { title: "1st Service", time: "7:30am", theme: "Morning Prayer (Intersession)" },
+  { title: "2nd Service", time: "10:30am", theme: "Sunday School" },
+  { title: "3rd Service", time: "11:00pm", theme: "Youth Service" },
 ];
 
 const heroStats = [
@@ -27,6 +27,8 @@ const Hero = () => {
       { src: "/images/herosection1.jpg", alt: "City outreach" },
       { src: "/images/herosection2.jpg", alt: "Youth worship" },
       { src: "/images/herosection3.jpg", alt: "Prayer gathering" },
+      { src: "/images/herosection7.jpeg", alt: "Theme" },
+
     ],
     []
   );
@@ -101,7 +103,7 @@ const Hero = () => {
                 </span>
               </h1>
               <p className="text-base sm:text-lg lg:text-xl text-gray-200 max-w-2xl">
-                Worship with us in person at CITAM Kisumu or join our global online campus. 
+                Worship with us in person at CITAM Kisumu or join our global online campus.
                 Encounter the Word, authentic community, and the transforming presence of Jesus every week.
               </p>
 

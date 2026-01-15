@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'cdn.taggbox.com' },
       { protocol: 'https', hostname: 'images.squarespace-cdn.com' },
       { protocol: 'https', hostname: 'blog.cph.org' },
+      { protocol: 'https', hostname: 'cdn.shopify.com' },
       { protocol: 'https', hostname: 'lookaside.fbsbx.com' },
       { protocol: 'https', hostname: 'wallpapers.com' },
       { protocol: 'https', hostname: 'i.ytimg.com' },

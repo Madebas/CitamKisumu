@@ -1,16 +1,17 @@
-'use client'
+"use client"
 
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
+import { CalendarIcon, ClockIcon, LocationIcon } from '../../components/Helper/Icons'
 
 const carouselSlides = [
   {
-    title: "CITAM Kisumu Christmas Eve Candlelight Service",
-    date: "December 24, 2025",
-    time: "5:00 PM & 7:00 PM",
+    title: "CITAM Kisumu Tuvuke Bridge for ex-Candidates",
+    date: "January 20, 2026",
+    time: "8:00 AM & 7:00 PM",
     description:
-      "Join the CITAM Church Kisumu family for a powerful candlelight service filled with worship, carols, and reflection as we celebrate the birth of our Lord Jesus Christ.",
-    image:
-      "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/christmas-service-flyer-template-design-11d4124293913ad0e39833d5a7e00789_screen.jpg",
+      "A special Tuvuke Bridge gathering for ex-candidates — an evening of encouragement, mentorship, and practical next-step support as we walk alongside those transitioning into new opportunities.",
+    image: '/images/Event1.jpeg',
   },
   {
     title: "Crossover Night Prayer & Worship",
@@ -18,8 +19,7 @@ const carouselSlides = [
     time: "9:00 PM – Midnight",
     description:
       "End the year and begin 2026 in prayer and worship at CITAM Kisumu as we thank God for His faithfulness and commit the new year to Him.",
-    image:
-      "https://cdn.taggbox.com/v7/https://socialwalls.com/blog/wp-content/uploads/2025/04/people-hands-up-church-worship-altar-liberation-hope_844008-87.jpg",
+    image: '/images/Event2.jpg',
   },
   {
     title: "CITAM Kisumu Family Retreat",
@@ -27,8 +27,7 @@ const carouselSlides = [
     time: "All Weekend",
     description:
       "A refreshing retreat designed to strengthen families spiritually, emotionally, and relationally through teaching, fellowship, and prayer.",
-    image:
-      "https://blog.cph.org/hs-fs/hubfs/_blogs/CPH_blog/Teach/2025/08-25-Fall-Family-Events-Teach.jpg",
+    image: '/images/Event3.png',
   },
 ]
 
@@ -41,8 +40,7 @@ const events = [
     category: "Youth Ministry",
     description:
       "An overnight youth experience featuring worship, teaching, team activities, and mentorship sessions.",
-    image:
-      "https://images.squarespace-cdn.com/content/v1/5e67ed0c2192f61504334cb6/6c095cad-435d-4752-aaf0-270ff6ac5068/Image20230811120336.jpg",
+    image: '/images/event4.jpg',
   },
   {
     title: "Community Outreach & Food Drive",
@@ -52,8 +50,7 @@ const events = [
     category: "Outreach",
     description:
       "Partner with us as we share Christ’s love through giving food supplies to families in need within Kisumu County.",
-    image:
-      "https://cdn.shopify.com/s/files/1/0091/3509/5863/files/5-church-outreach-ideas-to-connect-with-the-community-img.jpg",
+    image: '/images/event5.jpg',
   },
   {
     title: "Sunday Worship Services",
@@ -63,8 +60,7 @@ const events = [
     category: "Worship",
     description:
       "Join us every Sunday for vibrant worship, sound biblical teaching, and fellowship with the CITAM Kisumu family.",
-    image:
-      "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=1413898406773885",
+    image: '/images/event6.jpg',
   },
 ]
 
@@ -103,9 +99,13 @@ export default function Page() {
 
         {/* Carousel */}
         <div className="relative h-[360px] sm:h-[420px] lg:h-[500px] rounded-2xl overflow-hidden mb-16 shadow-xl">
-          <img
+          <Image
             src={carouselSlides[index].image}
             alt={carouselSlides[index].title}
+            fill
+            sizes="100vw"
+            quality={90}
+            priority
             className="absolute inset-0 w-full h-full object-cover"
           />
 
@@ -118,8 +118,15 @@ export default function Page() {
             <h3 className="text-3xl sm:text-4xl font-bold">
               {carouselSlides[index].title}
             </h3>
-            <p className="mt-2 text-gray-200">
-              📅 {carouselSlides[index].date} ⏰ {carouselSlides[index].time}
+            <p className="mt-2 text-gray-200 flex flex-wrap items-center gap-4">
+              <span className="inline-flex items-center gap-2">
+                <CalendarIcon className="w-5 h-5 text-yellow-300" />
+                {carouselSlides[index].date}
+              </span>
+              <span className="inline-flex items-center gap-2">
+                <ClockIcon className="w-5 h-5 text-yellow-300" />
+                {carouselSlides[index].time}
+              </span>
             </p>
             <p className="mt-4 max-w-xl text-gray-200">
               {carouselSlides[index].description}
@@ -152,9 +159,12 @@ export default function Page() {
               className="bg-white rounded-xl shadow hover:shadow-lg overflow-hidden"
             >
               <div className="relative h-48">
-                <img
+                <Image
                   src={event.image}
                   alt={event.title}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  quality={90}
                   className="absolute inset-0 w-full h-full object-cover"
                 />
                 <span className="absolute top-3 right-3 bg-[#6b0f1a] text-white text-sm px-3 py-1 rounded">
@@ -166,9 +176,9 @@ export default function Page() {
                 <h4 className="text-xl font-semibold text-[#6b0f1a]">
                   {event.title}
                 </h4>
-                <p className="text-sm mt-2">📅 {event.date}</p>
-                <p className="text-sm">⏰ {event.time}</p>
-                <p className="text-sm">📍 {event.location}</p>
+                <p className="text-sm mt-2 inline-flex items-center gap-2"><CalendarIcon className="w-4 h-4 text-[#6b0f1a]" />{event.date}</p>
+                <p className="text-sm inline-flex items-center gap-2"><ClockIcon className="w-4 h-4 text-[#6b0f1a]" />{event.time}</p>
+                <p className="text-sm inline-flex items-center gap-2"><LocationIcon className="w-4 h-4 text-[#6b0f1a]" />{event.location}</p>
                 <p className="mt-3 text-gray-600">{event.description}</p>
               </div>
             </div>
