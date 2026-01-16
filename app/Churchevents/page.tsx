@@ -27,7 +27,7 @@ const carouselSlides = [
     time: "All Weekend",
     description:
       "A refreshing retreat designed to strengthen families spiritually, emotionally, and relationally through teaching, fellowship, and prayer.",
-    image: '/images/Event3.png',
+    image: '/images/Event 3.png',
   },
 ]
 

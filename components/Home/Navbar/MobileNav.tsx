@@ -7,9 +7,10 @@ type MobileNavProps = {
   showMainNav: boolean;
   closeMainNav: () => void;
   openSearch: () => void;
+  openGive?: () => void;
 };
 
-const MobileNav = ({ closeMainNav, showMainNav, openSearch }: MobileNavProps) => {
+const MobileNav = ({ closeMainNav, showMainNav, openSearch, openGive }: MobileNavProps) => {
   const MainNavopen = showMainNav ? "translate-x-0" : "translate-x-[-100%]";
   return (
     <div>
@@ -49,6 +50,15 @@ const MobileNav = ({ closeMainNav, showMainNav, openSearch }: MobileNavProps) =>
           className="text-left text-white w-fit text-[20px] ml-12 border-b-[1.5px] pb-1 border-white sm:text-[30px]"
         >
           Faith Search
+        </button>
+        <button
+          onClick={() => {
+            openGive?.();
+            closeMainNav();
+          }}
+          className="text-left text-white w-fit text-[20px] ml-12 border-b-[1.5px] pb-1 border-white sm:text-[30px]"
+        >
+          Give
         </button>
         {/* close button */}
         <CgClose onClick={closeMainNav} className="absolute top-[0.7rem] right-[1.5rem] sm:w-8 sm:h-8 w-6 h-6" />
