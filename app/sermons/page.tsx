@@ -15,7 +15,7 @@ const pastors = [
     name: "Rev. Geoffrey Ong’ondo",
     title: "Senior Pastor",
     bio: "Passionate about discipleship and vibrant worship.",
-    image: { src: "/images/Rev. Geoffrey Ong’ondo.png", alt: "Rev. Geoffrey Ong’ondo" },
+    image: { src: "/images/Rev-Geoffrey-Ongondo.png", alt: "Rev. Geoffrey Ong’ondo" },
   },
   {
     id: 2,
