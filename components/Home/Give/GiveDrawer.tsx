@@ -2,7 +2,7 @@
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { X, Copy, CheckCircle2, HandCoins, Landmark, Heart } from "lucide-react";
+import { X, Copy, CheckCircle2, HandCoins, Heart } from "lucide-react";
 
 export type GiveDrawerProps = {
   isOpen: boolean;
@@ -202,50 +202,6 @@ const GiveDrawer = ({ isOpen, onClose }: GiveDrawerProps) => {
                     <li>4. Account: type purpose or your name</li>
                     <li>5. Confirm amount → Send</li>
                   </ol>
-                </div>
-              </section>
-
-              <section className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[#e8efff] text-[#3152a1]">
-                    <Landmark className="w-5 h-5" />
-                  </span>
-                  <div>
-                    <p className="text-sm font-semibold text-[#1f2f60]">Bank Transfer</p>
-                    <p className="text-xs text-gray-500">Use your preferred bank app or USSD</p>
-                  </div>
-                </div>
-
-                <div className="rounded-3xl bg-white border border-blue-100 p-5 space-y-4">
-                  <div className="grid grid-cols-1 gap-3 text-sm">
-                    <div>
-                      <p className="text-xs uppercase tracking-[0.3em] text-gray-500">Account Number</p>
-                      <div className="mt-1 flex items-center justify-between rounded-2xl bg-[#f4f7ff] px-4 py-3">
-                        <p className="text-lg font-semibold text-[#1f2f60]">1234567890</p>
-                        <button
-                          type="button"
-                          onClick={() => handleCopy("1234567890", "bank")}
-                          className="flex items-center gap-1 text-sm text-[#1f2f60]"
-                        >
-                          {copiedField === "bank" ? (
-                            <>
-                              <CheckCircle2 className="w-4 h-4" /> Copied
-                            </>
-                          ) : (
-                            <>
-                              <Copy className="w-4 h-4" /> Copy
-                            </>
-                          )}
-                        </button>
-                      </div>
-                    </div>
-                    <p><span className="font-semibold">Bank:</span> Cooperative Bank</p>
-                    <p><span className="font-semibold">Branch:</span> Nairobi</p>
-                    <p><span className="font-semibold">Account Name:</span> CITAM Kisumu</p>
-                  </div>
-                  <p className="text-sm text-gray-600">
-                    Use any bank app/USSD → Transfer to the account above → Add your giving purpose in the narration line.
-                  </p>
                 </div>
               </section>
 

@@ -14,43 +14,38 @@ const pastors = [
     id: 1,
     name: "Rev. Geoffrey Ong’ondo",
     title: "Senior Pastor",
-    bio: "Passionate about discipleship and vibrant worship.",
     image: { src: "/images/Rev-Geoffrey-Ongondo.png", alt: "Rev. Geoffrey Ong’ondo" },
   },
   {
     id: 2,
-    name: "Rev. Jane Ong’ondo",
-    title: "Prayer & Missions Pastor",
-    bio: "Leading intercession and global outreach teams.",
-    image: { src: "/images/Rev Jane Ongondo..jpeg", alt: "Rev. Jane Ong’ondo" },
-  },
-  {
-    id: 3,
     name: "Rev. Patrick Kiprop",
-    title: "Family Life Pastor",
-    bio: "Building strong families rooted in Christ.",
+    title: "Deputy Senior Pastor",
     image: { src: "/images/Rev P Kiprop.jpg", alt: "Rev. Patrick Kiprop" },
   },
   {
+    id: 3,
+    name: "Rev. Jane Ong’ondo",
+    title: "Pastor",
+    image: { src: "/images/Rev Jane Ongondo..jpeg", alt: "Rev. Jane Ong’ondo" },
+  },
+
+  {
     id: 4,
     name: "Rev. Petronila Wegulo",
-    title: "Youth & NextGen",
-    bio: "Equipping the next generation for kingdom impact.",
+    title: "Pastor",
     image: { src: "/images/Rev Petronila Wegulo.jpeg", alt: "Rev. Petronila Wegulo" },
   },
 
   {
     id: 5,
     name: "Pastor Florence Iminza",
-    title: "Youth & NextGen",
-    bio: "Equipping the next generation for kingdom impact.",
+    title: "Pastor",
     image: { src: "/images/Pastor Florence Iminza.jpeg", alt: "Pastor Florence Iminza" },
   },
   {
     id: 6,
     name: "Pastor Epiphany Nyirahabimana",
-    title: "Intercessory and Prayer Pastor",
-    bio: "Equipping the next generation for kingdom impact.",
+    title: "Pastor",
     image: { src: "/images/Pastor2.jpeg", alt: "Pastor Epiphany Nyirahabimana" },
   },
 ];
@@ -128,24 +123,27 @@ const SermonSection = () => {
               navigation
               pagination={{ clickable: true }}
               aria-label="Featured pastors carousel"
-              className="!pb-12"
+              className="!pb-12 [&_.swiper-wrapper]:items-stretch [&_.swiper-slide]:h-auto [&_.swiper-slide]:flex"
             >
               {pastors.map((pastor) => (
-                <SwiperSlide key={pastor.id}>
-                  <article className="h-full rounded-3xl bg-white/10 backdrop-blur border border-white/10 p-6 flex flex-col items-center text-center shadow-lg hover:shadow-2xl transition-transform hover:-translate-y-1">
-                    <div className="relative w-40 h-40 rounded-full overflow-hidden mb-4 shadow-lg">
+                <SwiperSlide key={pastor.id} className="h-auto flex">
+                  <article className="w-full h-full min-h-[22rem] sm:min-h-[24rem] rounded-3xl bg-white/10 backdrop-blur border border-white/10 p-7 sm:p-8 flex flex-col items-center text-center shadow-lg hover:shadow-2xl transition-transform hover:-translate-y-1 max-w-[26rem] mx-auto">
+                    <div className="relative w-44 h-44 sm:w-48 sm:h-48 lg:w-52 lg:h-52 rounded-full overflow-hidden mb-5 shadow-lg ring-1 ring-white/15">
                       <Image
                         src={pastor.image.src}
                         alt={pastor.image.alt || pastor.name}
                         fill
-                        sizes="(max-width: 768px) 60vw, 200px"
+                        sizes="(max-width: 640px) 70vw, (max-width: 1024px) 260px, 300px"
                         className="object-cover"
                         loading="lazy"
                       />
                     </div>
-                    <h3 className="text-xl font-semibold text-white">{pastor.name}</h3>
-                    <p className="text-sm text-red-200 font-semibold">{pastor.title}</p>
-                    <p className="text-sm text-gray-200 mt-2">{pastor.bio}</p>
+                    <h3 className="text-xl sm:text-2xl font-semibold text-white leading-snug min-h-[3.25rem] sm:min-h-[3.5rem] flex items-center justify-center">
+                      {pastor.name}
+                    </h3>
+                    <p className="text-sm sm:text-base text-red-200 font-semibold mt-1 min-h-[1.5rem]">
+                      {pastor.title}
+                    </p>
                   </article>
                 </SwiperSlide>
               ))}

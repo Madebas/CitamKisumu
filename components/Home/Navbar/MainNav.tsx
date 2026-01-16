@@ -63,11 +63,11 @@ const MainNav = ({ openMainNav, openSearch, openGive, isGiveOpen }: MainNavProps
     <div
       className={`${
         MainNavBg ? "bg-red-950 shadow-md" : "fixed"
-      } transition-all duration-300 h-[12vh] z-[1000] fixed w-full`}
+      } transition-all duration-300 h-16 sm:h-20 lg:h-[12vh] z-[1000] fixed w-full`}
       role="navigation"
       aria-label="Primary"
     >
-      <div className="flex items-center h-full w-[90%] xl:w-[80%] mx-auto px-4 lg:px-6">
+      <div className="page-shell flex items-center h-full">
         {/* Logo */}
         <div className="flex items-center space-x-2 absolute left-2 lg:static lg:left-0 flex-shrink-0">
           <div className="w-16 h-16 rounded-full flex items-center justify-center">
@@ -146,7 +146,7 @@ const MainNav = ({ openMainNav, openSearch, openGive, isGiveOpen }: MainNavProps
           <SearchBox onClick={openSearch} />
           <button
             onClick={openGive}
-            className={`md:px-2 md:py-1.5 px-6 py-2 text-base font-semibold rounded-lg transition-all duration-200 flex items-center gap-2 ${
+            className={`px-4 py-2 sm:px-5 sm:py-2.5 text-sm sm:text-base font-semibold rounded-lg transition-all duration-200 flex items-center gap-2 ${
               isGiveOpen
                 ? "bg-[#c04b37] text-white shadow-lg"
                 : "bg-white text-[#3c0d0d] hover:bg-gray-100"
@@ -172,7 +172,7 @@ const MainNav = ({ openMainNav, openSearch, openGive, isGiveOpen }: MainNavProps
           </button>
           <HiBars3BottomRight
             onClick={openMainNav}
-            className="w-8 h-8 cursor-pointer text-white lg:hidden"
+            className="w-9 h-9 cursor-pointer text-white lg:hidden"
           />
         </div>
       </div>

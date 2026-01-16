@@ -6,9 +6,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Radio, CalendarDays, PlayCircle, MapPin } from "lucide-react";
 
 const serviceTimes = [
-  { title: "1st Service", time: "7:30am", theme: "Morning Prayer (Intersession)" },
-  { title: "2nd Service", time: "10:30am", theme: "Sunday School" },
-  { title: "3rd Service", time: "11:00pm", theme: "Youth Service" },
+  { title: "Prayer Session", time: "7:30am", theme: "Morning Prayer (Intersession)" },
+  { title: "1st Service", time: "10:30am", theme: "Sunday School" },
+  { title: "2nd Service", time: "11:00pm", theme: "Youth Service" },
 ];
 
 const heroStats = [
