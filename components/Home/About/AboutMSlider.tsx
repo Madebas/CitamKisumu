@@ -45,7 +45,7 @@ export const destinationData = [
   // Add more items here if needed, e.g.:
   {
     id: 4,
-    img: "/images/herosection3.jpg",
+    img: "/images/Herosection3.jpg",
     country: "Your Country 4",
     travelers: "Your Travelers Count"
   },

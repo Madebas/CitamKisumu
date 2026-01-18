@@ -5,7 +5,7 @@ import Link from "next/link";
 // Removed unused lucide-react imports to avoid build warnings
 
  
-              // src="/images/prayergroups."
+              // src="/images/safarigroups.jpg"
               // alt="safarigroupbackground"
               
 

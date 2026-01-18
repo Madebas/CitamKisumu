@@ -26,7 +26,7 @@ const Hero = () => {
       { src: "/images/HeroSectionMain2.png", alt: "Hands lifted in praise" },
       { src: "/images/herosection1.jpg", alt: "City outreach" },
       { src: "/images/herosection2.jpg", alt: "Youth worship" },
-      { src: "/images/herosection3.jpg", alt: "Prayer gathering" },
+      { src: "/images/Herosection3.jpg", alt: "Prayer gathering" },
       { src: "/images/herosection7.jpeg", alt: "Theme" },
 
     ],
@@ -94,7 +94,7 @@ const Hero = () => {
             {/* Left - Main message */}
             <div className="space-y-6 lg:space-y-8 text-white">
               <p className="text-sm sm:text-base uppercase tracking-[0.5em] text-red-200 font-medium">
-                Christ is the Answer
+                Christ is the Answer Ministries
               </p>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight">
                 A Church for the{" "}
