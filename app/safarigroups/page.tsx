@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const SafariGroups: React.FC = () => {
   // Google Form URL for registration
-  const googleFormUrl = "https://docs.google.com/forms/d/your-form-id-here/viewform";
+  const googleFormUrl = "https://forms.gle/Pc1VjF4v4g9cBmmo8";
 
   return (
     <section id="safarigroups" className="py-20 bg-[#fff8f0]">

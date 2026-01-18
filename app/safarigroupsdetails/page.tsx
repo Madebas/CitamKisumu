@@ -73,7 +73,7 @@ const SafariGroupsDetails: React.FC = () => {
   };
 
   // Google Form URL for registration
-  const googleFormUrl = "https://docs.google.com/forms/d/your-form-id-here/viewform";
+  const googleFormUrl = "https://forms.gle/Pc1VjF4v4g9cBmmo8";
 
   return (
     <section className="py-20 bg-white">
