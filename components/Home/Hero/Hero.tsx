@@ -123,7 +123,7 @@ const Hero = () => {
             <div className="bg-white/10 backdrop-blur-lg border border-white/10 rounded-3xl p-6 lg:p-8 shadow-2xl space-y-6">
               <div className="flex items-center gap-3 text-red-200">
                 <MapPin className="w-5 h-5" aria-hidden="true" />
-                <span className="font-medium">Kisumu Sanctuary • Deliverance Road</span>
+                <span className="font-medium">CITAM Kisumu Church • Nairobi Road</span>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">

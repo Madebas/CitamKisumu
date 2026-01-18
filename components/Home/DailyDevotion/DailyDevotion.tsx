@@ -4,22 +4,66 @@ import React, { useEffect, useMemo, useState } from "react";
 import SectionHeading from "@/components/Helper/SectionHeading";
 import { Calendar, Clock, BookOpenCheck, Heart } from "lucide-react";
 
-const devotionPlan = [
+// --- Dynamic Content Data ---
+// For production, these would be loaded from a CMS or API. Here, we use static arrays for demo.
+const dailyDevotions = [
   {
-    day: "Monday",
-    focus: "Prayer & Consecration",
-    scripture: "Romans 12:1-2",
+    reference: "Psalm 27:1",
+    reflection: "God is our light and salvation; reflect on areas where you need His guidance today.",
+    prayer: "Pray for boldness to trust God in every circumstance.",
   },
   {
-    day: "Wednesday",
-    focus: "Word Immersion",
-    scripture: "Psalm 119:105",
+    reference: "Isaiah 40:31",
+    reflection: "Those who hope in the Lord renew their strength. Consider what it means to wait on God.",
+    prayer: "Ask God for renewed strength and patience in your journey.",
   },
   {
-    day: "Friday",
-    focus: "Community Outreach",
-    scripture: "James 1:27",
+    reference: "Philippians 4:13",
+    reflection: "Christ empowers us for all things. Meditate on His sufficiency in your weakness.",
+    prayer: "Pray for Christ's strength to be made perfect in your weakness.",
   },
+  {
+    reference: "Romans 8:28",
+    reflection: "God works all things for good. Reflect on His faithfulness in your life.",
+    prayer: "Thank God for His purpose and goodness in every situation.",
+  },
+  {
+    reference: "Proverbs 3:5-6",
+    reflection: "Trust in the Lord with all your heart. Surrender your plans to Him today.",
+    prayer: "Pray for a heart that trusts God fully and submits to His will.",
+  },
+  // ...add as many as needed for each day of the year, ensuring no repetition
+];
+
+const weeklyRhythmPlan = [
+  // Each entry is a week, with unique verses, reflections, and prayers for Monday and Wednesday
+  {
+    week: 1,
+    monday: {
+      reference: "Matthew 6:33",
+      reflection: "Seek first God's kingdom. Reflect on your priorities this week.",
+      prayer: "Pray for a heart that seeks God above all else.",
+    },
+    wednesday: {
+      reference: "Psalm 23:1",
+      reflection: "The Lord is my shepherd. Consider how God provides for you.",
+      prayer: "Thank God for His provision and guidance.",
+    },
+  },
+  {
+    week: 2,
+    monday: {
+      reference: "James 1:5",
+      reflection: "If you lack wisdom, ask God. Reflect on areas where you need His wisdom.",
+      prayer: "Pray for wisdom in your decisions this week.",
+    },
+    wednesday: {
+      reference: "John 14:27",
+      reflection: "Jesus gives peace. Meditate on His peace in your heart.",
+      prayer: "Ask God to fill you with His peace amid challenges.",
+    },
+  },
+  // ...add more weeks as needed, ensuring no repetition
 ];
 
 const bibleStructure = [
@@ -93,17 +137,18 @@ const bibleStructure = [
 
 const TOTAL_PLAN_DAYS = 366;
 
-const buildReadingPlan = () => {
-  const plan: string[] = [];
-  outer: for (const { book, chapters } of bibleStructure) {
-    for (let chapter = 1; chapter <= chapters; chapter++) {
-      plan.push(`${book} ${chapter}:1`);
-      if (plan.length >= TOTAL_PLAN_DAYS) {
-        break outer;
-      }
-    }
-  }
-  return plan;
+
+// --- Utility Functions ---
+const getDayOfYear = (date: Date) => {
+  const start = new Date(date.getFullYear(), 0, 0);
+  const diff = date.getTime() - start.getTime();
+  return Math.floor(diff / 86400000);
+};
+
+const getWeekOfYear = (date: Date) => {
+  const firstDay = new Date(date.getFullYear(), 0, 1);
+  const pastDaysOfYear = (date.getTime() - firstDay.getTime()) / 86400000;
+  return Math.ceil((pastDaysOfYear + firstDay.getDay() + 1) / 7);
 };
 
 const getDayIndex = (date: Date) => {
@@ -112,61 +157,18 @@ const getDayIndex = (date: Date) => {
   return Math.min(TOTAL_PLAN_DAYS - 1, Math.floor(diff / 86400000));
 };
 
+
 const DailyDevotion = () => {
   const today = useMemo(() => new Date(), []);
-  const dayIndex = useMemo(() => getDayIndex(today), [today]);
-  const readingPlan = useMemo(() => buildReadingPlan(), []);
-  const todaysReference = readingPlan[dayIndex];
-  const fallbackText = todaysReference
-    ? `Meditate on ${todaysReference} throughout your day.`
-    : "Meditate on God's Word today.";
+  // --- Daily Devotion ---
+  const dayOfYear = useMemo(() => getDayOfYear(today), [today]);
+  const dailyIndex = dayOfYear % dailyDevotions.length;
+  const daily = dailyDevotions[dailyIndex];
 
-  const [verse, setVerse] = useState({
-    reference: todaysReference ?? "Psalm 27:1",
-    text: "The Lord is my light and my salvation—whom shall I fear?",
-  });
-
-  useEffect(() => {
-    if (!todaysReference || typeof window === "undefined") return;
-
-    const storageKey = `devotion-verse-${today.getFullYear()}-${dayIndex}`;
-
-    const cached = window.localStorage.getItem(storageKey);
-    if (cached) {
-      try {
-        const parsed = JSON.parse(cached);
-        setVerse(parsed);
-        return;
-      } catch {
-        window.localStorage.removeItem(storageKey);
-      }
-    }
-
-    const controller = new AbortController();
-
-    const fetchVerse = async () => {
-      try {
-        const response = await fetch(
-          `https://bible-api.com/${encodeURIComponent(todaysReference)}?translation=kjv`,
-          { signal: controller.signal }
-        );
-        if (!response.ok) throw new Error("Failed to fetch verse");
-        const data = await response.json();
-        const payload = {
-          reference: data.reference ?? todaysReference,
-          text: (data.text || fallbackText).trim(),
-        };
-        setVerse(payload);
-        window.localStorage.setItem(storageKey, JSON.stringify(payload));
-      } catch {
-        setVerse({ reference: todaysReference, text: fallbackText });
-      }
-    };
-
-    fetchVerse();
-
-    return () => controller.abort();
-  }, [dayIndex, today, todaysReference, fallbackText]);
+  // --- Weekly Rhythm ---
+  const weekOfYear = useMemo(() => getWeekOfYear(today), [today]);
+  const weekIndex = (weekOfYear - 1) % weeklyRhythmPlan.length;
+  const weekly = weeklyRhythmPlan[weekIndex];
 
   return (
     <section id="daily-devotion" className="bg-[#fffaf4] py-20">
@@ -198,8 +200,8 @@ const DailyDevotion = () => {
 
             <div className="bg-gradient-to-r from-[#6b0f1a] to-[#c0392b] text-white rounded-2xl p-6 space-y-3">
               <p className="text-sm uppercase tracking-[0.2em] text-white/70">Today&apos;s Scripture</p>
-              <p className="text-lg font-semibold">{verse.reference}</p>
-              <p className="text-sm text-white/80 whitespace-pre-line">{verse.text}</p>
+              <p className="text-lg font-semibold">{daily.reference}</p>
+              <p className="text-sm text-white/80 whitespace-pre-line">{daily.reflection}</p>
             </div>
 
             <div className="grid sm:grid-cols-2 gap-4">
@@ -209,7 +211,7 @@ const DailyDevotion = () => {
                   <span className="font-semibold text-gray-800">Reflection</span>
                 </div>
                 <p className="text-sm text-gray-600">
-                  Invite the Holy Spirit to illuminate areas of your life that need His light. Journal what He reveals.
+                  {daily.reflection}
                 </p>
               </div>
               <div className="border border-gray-100 rounded-2xl p-5">
@@ -218,7 +220,7 @@ const DailyDevotion = () => {
                   <span className="font-semibold text-gray-800">Prayer Focus</span>
                 </div>
                 <p className="text-sm text-gray-600">
-                  Pray for courage to carry Christ&apos;s light into your workplace, school, and safari group.
+                  {daily.prayer}
                 </p>
               </div>
             </div>
@@ -235,21 +237,43 @@ const DailyDevotion = () => {
             </div>
 
             <ul className="space-y-4">
-              {devotionPlan.map((item) => (
-                <li
-                  key={item.day}
-                  className="flex items-start gap-4 p-4 rounded-2xl bg-orange-50 border border-orange-100"
-                >
-                  <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white text-[#e67e22] font-semibold">
-                    {item.day.slice(0, 3)}
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-[#6b0f1a]">{item.day}</p>
-                    <p className="text-base font-medium text-gray-900">{item.focus}</p>
-                    <p className="text-sm text-gray-600">{item.scripture}</p>
-                  </div>
-                </li>
-              ))}
+              {/* Monday */}
+              <li className="flex items-start gap-4 p-4 rounded-2xl bg-orange-50 border border-orange-100">
+                <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white text-[#e67e22] font-semibold">
+                  Mon
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-[#6b0f1a]">Monday <span className="text-xs text-gray-500">(5:00 AM - 6:00 AM)</span></p>
+                  <p className="text-base font-medium text-gray-900">Online Prayers via Zoom</p>
+                  <p className="text-sm text-gray-600">{weekly.monday.reference}</p>
+                  <p className="text-sm text-gray-600">{weekly.monday.reflection}</p>
+                  <p className="text-sm text-gray-600">{weekly.monday.prayer}</p>
+                </div>
+              </li>
+              {/* Wednesday */}
+              <li className="flex items-start gap-4 p-4 rounded-2xl bg-orange-50 border border-orange-100">
+                <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white text-[#e67e22] font-semibold">
+                  Wed
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-[#6b0f1a]">Wednesday <span className="text-xs text-gray-500">(5:00 PM - 7:00 PM)</span></p>
+                  <p className="text-base font-medium text-gray-900">Midweek Encounter Service</p>
+                  <p className="text-sm text-gray-600">{weekly.wednesday.reference}</p>
+                  <p className="text-sm text-gray-600">{weekly.wednesday.reflection}</p>
+                  <p className="text-sm text-gray-600">{weekly.wednesday.prayer}</p>
+                </div>
+              </li>
+              {/* Monthly Fellowship (3rd Saturday) */}
+              <li className="flex items-start gap-4 p-4 rounded-2xl bg-orange-50 border border-orange-100">
+                <div className="w-12 h-12 flex items-center justify-center rounded-2xl bg-white text-[#e67e22] font-semibold">
+                  Sat
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-[#6b0f1a]">Monthly Fellowship <span className="text-xs text-gray-500">(Every 3rd Saturday)</span></p>
+                  <p className="text-base font-medium text-gray-900">Men's Fellowship <span className="text-xs text-gray-500">6:00 AM - 8:30 AM</span></p>
+                  <p className="text-base font-medium text-gray-900">Women's Fellowship <span className="text-xs text-gray-500">8:30 AM - 12:00 PM</span></p>
+                </div>
+              </li>
             </ul>
 
             <button
