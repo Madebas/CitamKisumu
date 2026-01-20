@@ -136,7 +136,6 @@ const Hero = () => {
                       {slot.title}
                     </p>
                     <p className="text-2xl font-bold mt-1">{slot.time}</p>
-                    <p className="text-sm text-gray-300 mt-1">{slot.theme}</p>
                   </div>
                 ))}
               </div>
