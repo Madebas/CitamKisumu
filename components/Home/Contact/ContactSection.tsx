@@ -20,7 +20,7 @@ const contactDetails = [
 ];
 
 const serviceTimes = [
-  { day: "Sunday", time: "8:30 AM & 10:30 PM" },
+  { day: "Sunday", time: "8:30 AM & 11:00 AM" },
   { day: "Wednesday -(Midweek Service)", time:  "5:30 PM to 7:00 PM" },
 ];
 

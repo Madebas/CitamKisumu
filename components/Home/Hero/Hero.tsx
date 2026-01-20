@@ -8,7 +8,7 @@ import { Radio, CalendarDays, PlayCircle, MapPin } from "lucide-react";
 const serviceTimes = [
   { title: "Prayer Session", time: "7:30am"},
   { title: "1st Service", time: "8:30am", },
-  { title: "2nd Service", time: "10:30am"},
+  { title: "2nd Service", time: "11:0am"},
 ];
 
 const heroStats = [
