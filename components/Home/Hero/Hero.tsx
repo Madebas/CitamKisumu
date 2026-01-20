@@ -7,8 +7,8 @@ import { Radio, CalendarDays, PlayCircle, MapPin } from "lucide-react";
 
 const serviceTimes = [
   { title: "Prayer Session", time: "7:30am", theme: "Morning Prayer (Intersession)" },
-  { title: "1st Service", time: "10:30am", theme: "Sunday School" },
-  { title: "2nd Service", time: "11:00pm", theme: "Youth Service" },
+  { title: "1st Service", time: "8:30am", theme: "Sunday School" },
+  { title: "2nd Service", time: "10:30am", theme: "Youth Service" },
 ];
 
 const heroStats = [
@@ -58,7 +58,7 @@ const Hero = () => {
     >
       {/* Background images with crossfade */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-[#2b050b]/70 to-black/80 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-black from-black/60 via-[#2b050b]/70 to-black/80 z-10" />
         <AnimatePresence mode="wait">
           <motion.div
             key={currentImage}
