@@ -28,7 +28,6 @@ const Hero = () => {
       { src: "/images/herosection2.jpg", alt: "Youth worship" },
       { src: "/images/Herosection3.jpg", alt: "Prayer gathering" },
       { src: "/images/herosection7.jpeg", alt: "Theme" },
-
     ],
     []
   );
@@ -42,7 +41,7 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, [images.length]);
 
-  // Preload next image (improves perceived performance)
+  // Preload next image
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -59,7 +58,9 @@ const Hero = () => {
       {/* Background images with crossfade */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-black from-black/60 via-[#2b050b]/70 to-black/80 z-10" />
-        <AnimatePresence mode="wait">
+
+        {/* ✅ ONLY FIX IS HERE */}
+        <AnimatePresence mode="sync" initial={false}>
           <motion.div
             key={currentImage}
             initial={{ opacity: 0 }}
@@ -73,7 +74,7 @@ const Hero = () => {
               alt={images[currentImage].alt}
               fill
               sizes="(max-width: 768px) 100vw, 100vw"
-              priority={currentImage <= 1} // preload first two images
+              priority={currentImage <= 1}
               quality={85}
               className="object-cover"
             />
@@ -91,7 +92,7 @@ const Hero = () => {
           </div>
 
           <div className="grid lg:grid-cols-2 gap-10 xl:gap-16 items-start">
-            {/* Left - Main message */}
+            {/* Left */}
             <div className="space-y-6 lg:space-y-8 text-white">
               <p className="text-sm sm:text-base uppercase tracking-[0.5em] text-red-200 font-medium">
                 Christ is the Answer Ministries
@@ -119,7 +120,7 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* Right - Service Times Card */}
+            {/* Right */}
             <div className="bg-white/10 backdrop-blur-lg border border-white/10 rounded-3xl p-6 lg:p-8 shadow-2xl space-y-6">
               <div className="flex items-center gap-3 text-red-200">
                 <MapPin className="w-5 h-5" aria-hidden="true" />
