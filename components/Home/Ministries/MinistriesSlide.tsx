@@ -49,9 +49,9 @@ export const destinationData = [
   {
     id: 4,
     img: "/images/GoldenAgeMinistries.jpg",
-    Ministry: "Golden Agers Ministry",
+    Ministry: "Golden Edgers Ministry",
     Description:
-      "The Golden Agers Ministry provides support and fellowship for the senior members of the church.",
+      "The Golden Edgers Ministry provides support and fellowship for the senior members of the church.",
   },
   {
     id: 5,

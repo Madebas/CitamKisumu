@@ -72,7 +72,7 @@ const MainNav = ({ openMainNav, openSearch, openGive, isGiveOpen }: MainNavProps
         <div className="flex items-center space-x-2 absolute left-2 lg:static lg:left-0 flex-shrink-0">
           <div className="w-16 h-16 rounded-full flex items-center justify-center">
             <Image
-              src="/images/CITAMLOGO.png"
+              src="/images/Newlogo.jpeg"
               alt="logo"
               width={50}
               height={50}

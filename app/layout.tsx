@@ -10,8 +10,11 @@ const font = Poppins({
 
 
 export const metadata: Metadata = {
-  title: "CITAM CHURCH KSM",
-  description: "CITAM CHURCH KSM Website",
+  title: "CITAM CHURCH KISUMU",
+  description: "CITAM CHURCH KISUMU Website",
+  icons: {
+    icon: "/images/CITAMLOGO.png, alt: 'CITAM Kisumu Logo'",
+  },
 };
 
 export default function RootLayout({

@@ -6,9 +6,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Radio, CalendarDays, PlayCircle, MapPin } from "lucide-react";
 
 const serviceTimes = [
-  { title: "Prayer Session", time: "7:30am"},
+  { title: "Prayer Session", time: "7:30am" },
   { title: "1st Service", time: "8:30am", },
-  { title: "2nd Service", time: "11:0am"},
+  { title: "2nd Service", time: "11:0am" },
 ];
 
 const heroStats = [
@@ -98,9 +98,9 @@ const Hero = () => {
                 Christ is the Answer Ministries
               </p>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight">
-                A Church for the{" "}
+                A Community{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-red-300 to-amber-200">
-                  City & Nations
+                  of Faith for All
                 </span>
               </h1>
               <p className="text-base sm:text-lg lg:text-xl text-gray-200 max-w-2xl">
