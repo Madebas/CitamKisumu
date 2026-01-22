@@ -244,7 +244,14 @@ const DailyDevotion = () => {
                 </div>
                 <div>
                   <p className="text-sm font-semibold text-[#6b0f1a]">Monday <span className="text-xs text-gray-500">(5:00 AM - 6:00 AM)</span></p>
-                  <p className="text-base font-medium text-gray-900">Online Prayers via Zoom</p>
+                  <a
+                    href="https://citam-org.zoom.us/j/83886950256?pwd=VkZyN2VZWHZheWlITWhyNUF1Y2dSdz09"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-base font-medium text-gray-900 underline"
+                  >
+                    zoom prayer — Click to join
+                  </a>
                   <p className="text-sm text-gray-600">{weekly.monday.reference}</p>
                   <p className="text-sm text-gray-600">{weekly.monday.reflection}</p>
                   <p className="text-sm text-gray-600">{weekly.monday.prayer}</p>
