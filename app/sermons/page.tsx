@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -50,46 +50,121 @@ const pastors = [
   },
 ];
 
-const recentSermons = [
-  {
-    id: "sermon-1",
-    title: "Anchored Hope",
-    date: "January 12, 2026",
-    speaker: "Rev. Geoffrey Ong’ondo",
-    excerpt: "Last Sunday's message on faith — how Hebrews 6:19 anchors our hope.",
-    youtubeId: "sDhq-kYttyU",
-    thumbnail: "https://i.ytimg.com/vi/sDhq-kYttyU/mqdefault.jpg",
-  },
-  {
-    id: "sermon-2",
-    title: "The Spirit-Filled Life",
-    date: "January 5, 2026",
-    speaker: "Rev. Geoffrey Ong’ondo",
-    excerpt: "Live from CITAM Kisumu — Rev. Geoffrey Ong’ondo on walking by faith.",
-    youtubeId: "HCu7klZSpD8",
-    thumbnail: "https://i.ytimg.com/vi/HCu7klZSpD8/mqdefault.jpg",
-  },
-  {
-    id: "sermon-3",
-    title: "Faith for Families",
-    date: "December 28, 2025",
-    speaker: "Rev. Patrick Kiprop",
-    excerpt: "Rev. Patrick Kiprop preaching — family faith and practical steps to build prayer at home.",
-    youtubeId: "VU6gOan7amY",
-    thumbnail: "https://i.ytimg.com/vi/VU6gOan7amY/mqdefault.jpg",
-  },
-  {
-    id: "sermon-4",
-    title: "Revive Us Again",
-    date: "December 21, 2025",
-    speaker: "Rev. Geoffrey Ong’ondo",
-    excerpt: "Rev. Geoffrey Ong’ondo — a call to revival and renewed faith (recorded live).",
-    youtubeId: "h6kHOcMSqu4",
-    thumbnail: "https://i.ytimg.com/vi/h6kHOcMSqu4/mqdefault.jpg",
-  },
+interface Sermon {
+  id: string;
+  title: string;
+  date: string;
+  speaker: string;
+  excerpt: string;
+  youtubeId: string;
+  thumbnail: string;
+}
+
+const fallbackSermons: Sermon[] = [
+  { id: "sermon-1", title: "The Call of Abraham", date: "February 8, 2026", speaker: "Rev. Patrick Kiprop", excerpt: "Ministering on the call of Abraham — stepping out in faith.", youtubeId: "lFZRoF7iSk8", thumbnail: "https://i.ytimg.com/vi/lFZRoF7iSk8/mqdefault.jpg" },
+  { id: "sermon-2", title: "Is Anything Too Hard for the Lord?", date: "February 1, 2026", speaker: "Rev. Geoffrey Ong’ondo", excerpt: "A message on God's limitless power and promises.", youtubeId: "HCu7klZSpD8", thumbnail: "https://i.ytimg.com/vi/HCu7klZSpD8/mqdefault.jpg" },
+  { id: "sermon-3", title: "Anchored Hope", date: "January 25, 2026", speaker: "Rev. Geoffrey Ong’ondo", excerpt: "How Hebrews 6:19 anchors our hope in uncertain times.", youtubeId: "sDhq-kYttyU", thumbnail: "https://i.ytimg.com/vi/sDhq-kYttyU/mqdefault.jpg" },
+  { id: "sermon-4", title: "Faith for Families", date: "January 18, 2026", speaker: "Rev. Patrick Kiprop", excerpt: "Practical steps to build faith and prayer in the home.", youtubeId: "VU6gOan7amY", thumbnail: "https://i.ytimg.com/vi/VU6gOan7amY/mqdefault.jpg" },
 ];
 
 const SermonSection = () => {
+  const [recentSermons, setRecentSermons] = useState<Sermon[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const inferSpeaker = (title: string, description: string): Sermon["speaker"] => {
+    const haystack = `${title} ${description}`.toLowerCase();
+    if (haystack.includes("patrick kiprop") || haystack.includes("pst. patrick") || haystack.includes("kiprop")) {
+      return "Rev. Patrick Kiprop";
+    }
+
+    if (
+      haystack.includes("geoffrey ong’ondo") ||
+      haystack.includes("geoffrey ong'ondo") ||
+      haystack.includes("ong’ondo") ||
+      haystack.includes("ong'ondo") ||
+      haystack.includes("ongondo") ||
+      haystack.includes("rev. geoffrey")
+    ) {
+      return "Rev. Geoffrey Ong’ondo";
+    }
+
+    return "CITAM Kisumu Preacher";
+  };
+
+  useEffect(() => {
+    const key = process.env.REACT_APP_YOUTUBE_API_KEY;
+    if (!key) {
+      console.warn("YouTube API key not provided in process.env.REACT_APP_YOUTUBE_API_KEY");
+      setRecentSermons(fallbackSermons);
+      setLoading(false);
+      return;
+    }
+
+    const controller = new AbortController();
+
+    const fetchSermons = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch(
+          `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UC2DbVTl14V4tgkLhbyfdSXg&maxResults=4&order=date&type=video&key=${key}`,
+          { signal: controller.signal }
+        );
+        if (!res.ok) throw new Error(`YouTube API error: ${res.status}`);
+        const data = await res.json();
+        const items = Array.isArray(data.items) ? data.items : [];
+        if (items.length < 1) {
+          setRecentSermons(fallbackSermons);
+          return;
+        }
+
+        const mapped: Sermon[] = items
+          .map((item: any): Sermon | null => {
+            const videoId: string | undefined = item?.id?.videoId;
+            const snippet = item?.snippet;
+            if (!videoId || !snippet) return null;
+
+            const title = typeof snippet.title === "string" ? snippet.title : "";
+            const description = typeof snippet.description === "string" ? snippet.description : "";
+            const publishedAt = typeof snippet.publishedAt === "string" ? snippet.publishedAt : "";
+
+            const excerpt =
+              (description || "").slice(0, 100) + ((description?.length > 100) ? "…" : "");
+
+            const thumbnail =
+              snippet.thumbnails?.medium?.url ||
+              snippet.thumbnails?.high?.url ||
+              snippet.thumbnails?.default?.url ||
+              "";
+
+            return {
+              id: videoId,
+              title,
+              date: publishedAt
+                ? new Date(publishedAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })
+                : "",
+              speaker: inferSpeaker(title, description),
+              excerpt,
+              youtubeId: videoId,
+              thumbnail,
+            };
+          })
+          .filter((s: Sermon | null): s is Sermon => s !== null);
+
+        setRecentSermons(mapped.length >= 1 ? mapped : fallbackSermons);
+      } catch (err) {
+        console.error("Failed fetching YouTube sermons:", err);
+        setRecentSermons(fallbackSermons);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSermons();
+    return () => controller.abort();
+  }, []);
+
+  // If there are no recent sermons, other hero/static images remain unchanged elsewhere.
+
   return (
     <section
       id="sermons"
@@ -166,43 +241,47 @@ const SermonSection = () => {
             </Link>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-            {recentSermons.map((sermon) => (
-              <article
-                key={sermon.id}
-                className="rounded-3xl bg-white text-gray-900 flex flex-col shadow-lg hover:shadow-2xl transition-transform hover:-translate-y-1"
-              >
-                <div className="relative w-full h-48 overflow-hidden rounded-t-3xl">
-                  <Image
-                    src={sermon.thumbnail}
-                    alt={`${sermon.title} thumbnail`}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 25vw"
-                    className="object-cover"
-                    loading="lazy"
-                  />
-                  <button
-                    type="button"
-                    className="absolute bottom-3 right-3 inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-red-600 text-white text-xs font-semibold"
-                    aria-label={`Watch ${sermon.title}`}
-                    onClick={() => window.open(`https://www.youtube.com/watch?v=${sermon.youtubeId}`, "_blank")}
-                  >
-                    ▶ Watch
-                  </button>
-                </div>
-                <div className="p-5 space-y-3 flex-1 flex flex-col">
-                  <div>
-                    <p className="text-xs uppercase tracking-widest text-red-500">{sermon.date}</p>
-                    <h4 className="text-lg font-semibold text-gray-900">{sermon.title}</h4>
+          {loading ? (
+            <p className="text-sm text-gray-200">Loading recent sermons…</p>
+          ) : (
+            <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+              {(recentSermons.length ? recentSermons : fallbackSermons).map((sermon) => (
+                <article
+                  key={sermon.id}
+                  className="rounded-3xl bg-white text-gray-900 flex flex-col shadow-lg hover:shadow-2xl transition-transform hover:-translate-y-1"
+                >
+                  <div className="relative w-full h-48 overflow-hidden rounded-t-3xl">
+                    <Image
+                      src={sermon.thumbnail}
+                      alt={`${sermon.title} thumbnail`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 25vw"
+                      className="object-cover"
+                      loading="lazy"
+                    />
+                    <button
+                      type="button"
+                      className="absolute bottom-3 right-3 inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-red-600 text-white text-xs font-semibold"
+                      aria-label={`Watch ${sermon.title}`}
+                      onClick={() => window.open(`https://www.youtube.com/watch?v=${sermon.youtubeId}`, "_blank")}
+                    >
+                      ▶ Watch
+                    </button>
                   </div>
-                  <p className="text-sm text-gray-700 flex-1">{sermon.excerpt}</p>
-                  <p className="text-sm font-semibold text-gray-900">
-                    Speaker: <span className="text-red-600">{sermon.speaker}</span>
-                  </p>
-                </div>
-              </article>
-            ))}
-          </div>
+                  <div className="p-5 space-y-3 flex-1 flex flex-col">
+                    <div>
+                      <p className="text-xs uppercase tracking-widest text-red-500">{sermon.date}</p>
+                      <h4 className="text-lg font-semibold text-gray-900">{sermon.title}</h4>
+                    </div>
+                    <p className="text-sm text-gray-700 flex-1">{sermon.excerpt}</p>
+                    <p className="text-sm font-semibold text-gray-900">
+                      Speaker: <span className="text-red-600">{sermon.speaker}</span>
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>
