@@ -103,7 +103,7 @@ const MainNav = ({ openMainNav, openSearch, openGive, isGiveOpen }: MainNavProps
               <div
                 key={link.id}
                 className="group relative"
-                ref={(el) => (itemRefs.current[index] = el)}
+                ref={(el) => { itemRefs.current[index] = el; }}
                 onMouseEnter={() => hasSubmenu && handleMouseEnter(index, link.id)}
                 onMouseLeave={handleMouseLeave}
               >
