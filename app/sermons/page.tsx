@@ -1,6 +1,6 @@
-"use client";
+﻿"use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,6 +9,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
+// Full pastors array – unchanged
 const pastors = [
   {
     id: 1,
@@ -28,14 +29,12 @@ const pastors = [
     title: "Pastor",
     image: { src: "/images/Rev Jane Ongondo..jpeg", alt: "Rev. Jane Ong’ondo" },
   },
-
   {
     id: 4,
     name: "Rev. Petronila Wegulo",
     title: "Pastor",
     image: { src: "/images/Rev Petronila Wegulo.jpeg", alt: "Rev. Petronila Wegulo" },
   },
-
   {
     id: 5,
     name: "Pastor Florence Iminza",
@@ -60,110 +59,47 @@ interface Sermon {
   thumbnail: string;
 }
 
-const fallbackSermons: Sermon[] = [
-  { id: "sermon-1", title: "The Call of Abraham", date: "February 8, 2026", speaker: "Rev. Patrick Kiprop", excerpt: "Ministering on the call of Abraham — stepping out in faith.", youtubeId: "lFZRoF7iSk8", thumbnail: "https://i.ytimg.com/vi/lFZRoF7iSk8/mqdefault.jpg" },
-  { id: "sermon-2", title: "Is Anything Too Hard for the Lord?", date: "February 1, 2026", speaker: "Rev. Geoffrey Ong’ondo", excerpt: "A message on God's limitless power and promises.", youtubeId: "HCu7klZSpD8", thumbnail: "https://i.ytimg.com/vi/HCu7klZSpD8/mqdefault.jpg" },
-  { id: "sermon-3", title: "Anchored Hope", date: "January 25, 2026", speaker: "Rev. Geoffrey Ong’ondo", excerpt: "How Hebrews 6:19 anchors our hope in uncertain times.", youtubeId: "sDhq-kYttyU", thumbnail: "https://i.ytimg.com/vi/sDhq-kYttyU/mqdefault.jpg" },
-  { id: "sermon-4", title: "Faith for Families", date: "January 18, 2026", speaker: "Rev. Patrick Kiprop", excerpt: "Practical steps to build faith and prayer in the home.", youtubeId: "VU6gOan7amY", thumbnail: "https://i.ytimg.com/vi/VU6gOan7amY/mqdefault.jpg" },
-];
-
 const SermonSection = () => {
   const [recentSermons, setRecentSermons] = useState<Sermon[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const isMounted = useRef(true);
 
-  const inferSpeaker = (title: string, description: string): Sermon["speaker"] => {
-    const haystack = `${title} ${description}`.toLowerCase();
-    if (haystack.includes("patrick kiprop") || haystack.includes("pst. patrick") || haystack.includes("kiprop")) {
-      return "Rev. Patrick Kiprop";
-    }
+  const fetchSermons = useCallback(async () => {
+    try {
+      const res = await fetch('/api/youtube-sermons');
+      if (!res.ok) throw new Error(`Failed to fetch: ${res.status}`);
+      const data = await res.json();
+      if (!isMounted.current) return;
 
-    if (
-      haystack.includes("geoffrey ong’ondo") ||
-      haystack.includes("geoffrey ong'ondo") ||
-      haystack.includes("ong’ondo") ||
-      haystack.includes("ong'ondo") ||
-      haystack.includes("ongondo") ||
-      haystack.includes("rev. geoffrey")
-    ) {
-      return "Rev. Geoffrey Ong’ondo";
-    }
-
-    return "CITAM Kisumu Preacher";
-  };
-
-  useEffect(() => {
-    const key = process.env.REACT_APP_YOUTUBE_API_KEY;
-    if (!key) {
-      console.warn("YouTube API key not provided in process.env.REACT_APP_YOUTUBE_API_KEY");
-      setRecentSermons(fallbackSermons);
-      setLoading(false);
-      return;
-    }
-
-    const controller = new AbortController();
-
-    const fetchSermons = async () => {
-      setLoading(true);
-      try {
-        const res = await fetch(
-          `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UC2DbVTl14V4tgkLhbyfdSXg&maxResults=4&order=date&type=video&key=${key}`,
-          { signal: controller.signal }
-        );
-        if (!res.ok) throw new Error(`YouTube API error: ${res.status}`);
-        const data = await res.json();
-        const items = Array.isArray(data.items) ? data.items : [];
-        if (items.length < 1) {
-          setRecentSermons(fallbackSermons);
-          return;
-        }
-
-        const mapped: Sermon[] = items
-          .map((item: any): Sermon | null => {
-            const videoId: string | undefined = item?.id?.videoId;
-            const snippet = item?.snippet;
-            if (!videoId || !snippet) return null;
-
-            const title = typeof snippet.title === "string" ? snippet.title : "";
-            const description = typeof snippet.description === "string" ? snippet.description : "";
-            const publishedAt = typeof snippet.publishedAt === "string" ? snippet.publishedAt : "";
-
-            const excerpt =
-              (description || "").slice(0, 100) + ((description?.length > 100) ? "…" : "");
-
-            const thumbnail =
-              snippet.thumbnails?.medium?.url ||
-              snippet.thumbnails?.high?.url ||
-              snippet.thumbnails?.default?.url ||
-              "";
-
-            return {
-              id: videoId,
-              title,
-              date: publishedAt
-                ? new Date(publishedAt).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })
-                : "",
-              speaker: inferSpeaker(title, description),
-              excerpt,
-              youtubeId: videoId,
-              thumbnail,
-            };
-          })
-          .filter((s: Sermon | null): s is Sermon => s !== null);
-
-        setRecentSermons(mapped.length >= 1 ? mapped : fallbackSermons);
-      } catch (err) {
-        console.error("Failed fetching YouTube sermons:", err);
-        setRecentSermons(fallbackSermons);
-      } finally {
-        setLoading(false);
+      if (data.sermons?.length) {
+        setRecentSermons(data.sermons);
+        setError(null);
+      } else {
+        setRecentSermons([]);
+        setError('No recent sermons found.');
       }
-    };
-
-    fetchSermons();
-    return () => controller.abort();
+    } catch (err) {
+      console.error('Error fetching sermons:', err);
+      if (isMounted.current) {
+        setError('Could not load sermons. Please try again later.');
+        setRecentSermons([]);
+      }
+    } finally {
+      if (isMounted.current) setLoading(false);
+    }
   }, []);
 
-  // If there are no recent sermons, other hero/static images remain unchanged elsewhere.
+  useEffect(() => {
+    isMounted.current = true;
+    fetchSermons();
+    // Poll every 30 minutes for new videos
+    const interval = setInterval(fetchSermons, 30 * 60 * 1000);
+    return () => {
+      isMounted.current = false;
+      clearInterval(interval);
+    };
+  }, [fetchSermons]);
 
   return (
     <section
@@ -172,7 +108,7 @@ const SermonSection = () => {
       aria-labelledby="sermons-heading"
     >
       <div className="max-w-6xl mx-auto px-4 lg:px-8 space-y-16">
-        {/* Upper Section */}
+        {/* Upper Section – Pastors Carousel */}
         <div className="space-y-6">
           <div className="text-center space-y-3">
             <p className="text-sm uppercase tracking-[0.4em] text-red-200">Pastoral Team</p>
@@ -226,7 +162,7 @@ const SermonSection = () => {
           </div>
         </div>
 
-        {/* Lower Section */}
+        {/* Lower Section – Sermons */}
         <div className="space-y-10">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
@@ -243,9 +179,13 @@ const SermonSection = () => {
 
           {loading ? (
             <p className="text-sm text-gray-200">Loading recent sermons…</p>
+          ) : error ? (
+            <p className="text-sm text-red-300">{error}</p>
+          ) : recentSermons.length === 0 ? (
+            <p className="text-sm text-gray-200">No sermons available at the moment.</p>
           ) : (
             <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
-              {(recentSermons.length ? recentSermons : fallbackSermons).map((sermon) => (
+              {recentSermons.map((sermon) => (
                 <article
                   key={sermon.id}
                   className="rounded-3xl bg-white text-gray-900 flex flex-col shadow-lg hover:shadow-2xl transition-transform hover:-translate-y-1"
